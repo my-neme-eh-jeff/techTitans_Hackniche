@@ -13,7 +13,7 @@ import {
 import { Link } from "@nextui-org/link";
 import { Tab, Tabs } from "@nextui-org/tabs";
 import { button as buttonStyles } from "@nextui-org/theme";
-import { BadgeIndianRupee } from "lucide-react";
+import { BarChart4 } from "lucide-react";
 import NextLink from "next/link";
 import { useSession } from "next-auth/react";
 
@@ -44,7 +44,7 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center" href="/">
-            <BadgeIndianRupee className="mr-2" />
+            <BarChart4 className="mr-2" />
             <p className="font-bold text-inherit text-lg uppercase">GrowthSync Analytics</p>
           </NextLink>
         </NavbarBrand>

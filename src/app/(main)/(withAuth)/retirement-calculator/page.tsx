@@ -22,7 +22,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { safeParse } from "valibot";
-import { IndianRupee, CheckCheck, XCircle, Download } from "lucide-react";
+import { BarChart4, CheckCheck, XCircle, Download } from "lucide-react";
 
 export default function ReitrementCalculator() {
   const initialData = {
@@ -241,7 +241,7 @@ export default function ReitrementCalculator() {
             <div className="mt-10 md:mt-0 grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
               <Input
                 required
-                endContent={<IndianRupee />}
+                endContent={<BarChart4 />}
                 type="number"
                 label="Salary in lpa"
                 value={formData.salary}
@@ -307,7 +307,7 @@ export default function ReitrementCalculator() {
                 }
               />
               <Input
-                endContent={<IndianRupee />}
+                endContent={<BarChart4 />}
                 type="number"
                 label="Total Asset Value"
                 value={formData.totalValuationOfCurrentAssets}

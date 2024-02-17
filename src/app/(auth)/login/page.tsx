@@ -2,7 +2,7 @@ import UserAuthForm from "../_components/UserAuthForm";
 import { SVGLineGlowAnimateContainer } from "../_components/LineGlowAnimation";
 import type { Metadata } from "next";
 
-import { BadgeIndianRupee } from "lucide-react";
+import { BarChart4 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Login",
@@ -17,7 +17,7 @@ export default function LoginPage() {
             <div className="grid flex-wrap items-center justify-center grid-cols-1 mx-auto shadow-sm group-hover:shadow-lg transition-shadow lg:grid-cols-2 rounded-xl">
               <div className="px-6 py-3 ">
                 <div className="flex flex-col space-y-2 text-center mb-6 mt-4">
-                  <BadgeIndianRupee className="mx-auto h-10 w-10" />
+                  <BarChart4 className="mx-auto h-10 w-10" />
                   <h1 className="text-2xl font-semibold tracking-tight">
                     Login
                   </h1>

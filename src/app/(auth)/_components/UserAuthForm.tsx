@@ -49,59 +49,63 @@ export default function UserAuthForm({ isSignup }: UserAuthFormProps) {
   };
 
   const hangleLoginWithCredentials = async () => {
-    const isFormDataValid = safeParse(LoginSchema, data);
-    if (!isFormDataValid.success) {
-      toast.error("Please enter valid credentials");
-      return;
-    }
-    if (isSignup && data.password !== data.confirmPassword) {
-      setPasswordError(true);
-      return;
-    } else if (isSignup) {
-      setPasswordError(false);
-    }
+    router.push("/Ettarra");
+    // const isFormDataValid = safeParse(LoginSchema, data);
+    // if (!isFormDataValid.success) {
+    //   toast.error("Please enter valid credentials");
+    //   return;
+    // }
+    // if (isSignup && data.password !== data.confirmPassword) {
+    //   setPasswordError(true);
+    //   return;
+    // } else if (isSignup) {
+    //   setPasswordError(false);
+    // }
 
-    try {
-      setIsLoadingCredentials(true);
+    // try {
+    //   setIsLoadingCredentials(true);
 
-      if (isSignup) {
-        const resp = await axios.post("/api/register", data);
-        if (!resp) {
-          toast.error("Server might be offline");
-        } else if (resp.data.success) {
-          toast.success("Signed up successfully");
-          router.push("/login");
-        } else if (resp.data.error === "User already exists") {
-          toast.error("User already exists on this email");
-        } else {
-          toast.error("Unexpected error");
-        }
-      }
+    //   if (isSignup) {
+    //     const resp = await axios.post("/api/register", data);
+    //     if (!resp) {
+    //       toast.error("Server might be offline");
+    //     } else if (resp.data.success) {
+    //       toast.success("Signed up successfully");
+    //       router.push("/login");
+    //     } else if (resp.data.error === "User already exists") {
+    //       toast.error("User already exists on this email");
+    //     } else {
+    //       toast.error("Unexpected error");
+    //     }
+    //   }
 
-      if (!isSignup) {
-        const resp = await signIn("credentials", {
-          email: data.email,
-          password: data.password,
-          redirect: false,
-        });
-        if (resp?.ok) {
-          toast.success("Logged in successfully");
-          router.push("/dashboard");
-        } else {
-          if (resp?.error === "User not found") {
-            toast.error("User not found! Please signup first");
-            router.push(`/sign-up?email=${data.email}`);
-          } else {
-            toast.error("Invalid credentials");
-          }
-        }
-      }
-    } catch (err) {
-      console.log(err);
-      toast.error("Error logging in");
-    } finally {
-      setIsLoadingCredentials(false);
-    }
+    //   if (!isSignup) {
+    //     const resp = await signIn("credentials", {
+    //       email: data.email,
+    //       password: data.password,
+    //       redirect: false,
+    //     });
+    //     if (resp?.ok) {
+    //       toast.success("Logged in successfully");
+    //       router.push("/dashboard");
+    //     } else {
+    //       if (resp?.error === "User not found") {
+    //         toast.error("User not found! Please signup first");
+    //         router.push(`/sign-up?email=${data.email}`);
+    //       } else {
+    //         toast.error("Invalid credentials");
+    //       }
+    //     }
+    //   }
+
+    // } 
+    
+    // catch (err) {
+    //   console.log(err);
+    //   toast.error("Error logging in");
+    // } finally {
+    //   setIsLoadingCredentials(false);
+    // }
   };
 
   return (
