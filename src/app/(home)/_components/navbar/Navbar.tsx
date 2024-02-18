@@ -45,7 +45,9 @@ export const Navbar = () => {
         <NavbarBrand className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center" href="/">
             <BarChart4 className="mr-2" />
-            <p className="font-bold text-inherit text-lg uppercase">GrowthSync Analytics</p>
+            <p className="font-bold text-inherit text-lg uppercase">
+              GrowthSync Analytics
+            </p>
           </NextLink>
         </NavbarBrand>
 
@@ -76,17 +78,12 @@ export const Navbar = () => {
             })}
           </Tabs>
         </NavbarItem>
-
-        <NavbarItem className="hidden md:flex">
-          <SearchButton />
-        </NavbarItem>
       </NavbarContent>
 
       <NavbarContent
         className="hidden md:flex basis-1/5 md:basis-full"
         justify="end"
       >
-
         <NavbarItem>
           <ColorModeSwitchButton />
         </NavbarItem>

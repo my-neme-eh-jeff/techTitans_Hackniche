@@ -19,47 +19,37 @@ import {
   navbarLinksForDashboardAdmin,
   navbarLinksForDashboardEmployee,
 } from "./NavLinks";
+import SearchButton from "@/app/(home)/_components/navbar/SearchButton";
 
 export default async function Navbar() {
   const auth = (await getAuthSession()) as Session;
-  
+
   return (
     <NextUINavbar maxWidth="full" position="sticky" aria-selected isBordered>
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit mr-6">
           <NextLink className="flex justify-start items-center" href="/">
             <BarChart4 className="mr-2" />
-            <p className="font-bold text-inherit text-lg uppercase">GrowthSync Analytics</p>
+            <p className="font-bold text-inherit text-lg uppercase">
+              GrowthSync Analytics
+            </p>
           </NextLink>
         </NavbarBrand>
 
         <NavbarContent className="hidden md:flex">
-          {auth.user.role === "companyAdmin" &&
-            navbarLinksForDashboardAdmin.map((navbarLink, index) => (
-              <NavbarItem key={index}>
-                <Link
-                  color="foreground"
-                  key={navbarLink.title}
-                  href={navbarLink.href}
-                >
-                  {navbarLink.title}
-                </Link>
-              </NavbarItem>
-            ))}
-          {(auth.user.role === "employee" ||
-            auth.user.role === "siteAdmin" ||
-            auth.user.role === "user") &&
-            navbarLinksForDashboardEmployee.map((navbarLink, index) => (
-              <NavbarItem key={index}>
-                <Link
-                  color="foreground"
-                  key={navbarLink.title}
-                  href={navbarLink.href}
-                >
-                  {navbarLink.title}
-                </Link>
-              </NavbarItem>
-            ))}
+          <NavbarItem>
+            <Link color="foreground" href="/ettarra/chatbot">
+              Chatbot
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="/ettarra/how-to-use">
+              How-To-Chatbot
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <SearchButton />
+          </NavbarItem>
         </NavbarContent>
       </NavbarContent>
 
@@ -87,7 +77,7 @@ export default async function Navbar() {
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarMenu>
+      {/* <NavbarMenu>
         {auth.user.role === "companyAdmin" &&
           navbarLinksForDashboardAdmin.map((navbarLink, index) => (
             <NavbarMenuItem key={`${index}`}>
@@ -105,7 +95,7 @@ export default async function Navbar() {
                 </Link>
               </NavbarMenuItem>
             )))}
-      </NavbarMenu>
+      </NavbarMenu> */}
     </NextUINavbar>
   );
 }

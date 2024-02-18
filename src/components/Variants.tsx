@@ -14,8 +14,8 @@ export const titleVariants = tv({
       pink: "from-[#FF72E1] to-[#F54C7A]",
     },
     size: {
-      sm: "text-3xl md:text-4xl lg:text-5xl leading-7 xl:text-6xl 2xl::text-7xl",
-      md: "text-4xl md:text-5xl lg:text-6xl leading-8 xl:text-7xl 2xl::text-8xl",
+      sm: "text-3xl md:text-4xl lg:text-6xl leading-7 xl:text-6xl 2xl:text-7xl",
+      md: "text-2xl md:text-5xl lg:text-4xl leading-8 xl:text-6xl 2xl:text-8xl",
     },
     fullWidth: {
       true: "w-full block",
@@ -42,7 +42,7 @@ export const titleVariants = tv({
   ],
 });
 export const subtitleVariants = tv({
-  base: "w-full md:w-1/2 my-2 text-2xl lg:text-3xl dark:text-zinc-400 text-zinc-400 block max-w-full",
+  base: "my-2 text-xl lg:text-2xl dark:text-zinc-400 text-zinc-400 block",
   variants: {
     fullWidth: {
       true: "!w-full",

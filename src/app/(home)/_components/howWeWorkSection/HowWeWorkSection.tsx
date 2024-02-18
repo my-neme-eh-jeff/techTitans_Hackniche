@@ -1,6 +1,13 @@
+"use client";
 import "./howWeWorkSection.css";
+import Aos from "aos";
+import { useEffect } from "react";
 
 export default function HowWeWorkSection() {
+  useEffect(() => {
+    Aos.init({ mirror: true, once: false, easing: "ease" });
+  });
+
   return (
     <div>
       <div
@@ -61,7 +68,7 @@ export default function HowWeWorkSection() {
             fill="white"
             fontSize="16pt"
           >
-            add employees
+            add data
           </text>
           <text
             className="path-text-2 fill-black dark:fill-white"
@@ -72,7 +79,7 @@ export default function HowWeWorkSection() {
             fill="white"
             fontSize="16pt"
           >
-            Employee
+            Web scraping
           </text>
           <text
             className="path-text-2 fill-black dark:fill-white"
@@ -83,7 +90,7 @@ export default function HowWeWorkSection() {
             fill="white"
             fontSize="16pt"
           >
-            gets connected
+            started
           </text>
           <text
             className="path-text-3 fill-black dark:fill-white"
@@ -94,7 +101,7 @@ export default function HowWeWorkSection() {
             fill="white"
             fontSize="16pt"
           >
-            Get retirement plan
+            ML models run
           </text>
           <text
             className="path-text-3 fill-black dark:fill-white"
@@ -111,12 +118,12 @@ export default function HowWeWorkSection() {
             className="path-text-4 fill-black dark:fill-white"
             dominantBaseline="middle"
             textAnchor="middle"
-            x="715"
+            x="735"
             y="175"
             fill="white"
             fontSize="16pt"
           >
-            Data generated
+            Feedback provided
           </text>
           <text
             className="path-text-5 fill-black dark:fill-white"

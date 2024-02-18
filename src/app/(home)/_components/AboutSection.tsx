@@ -9,7 +9,8 @@ import { useEffect, useRef, useState } from "react";
 import { DotLottiePlayer, PlayerEvents } from "@dotlottie/react-player";
 import "@dotlottie/react-player/dist/index.css";
 import { Divider, Spinner } from "@nextui-org/react";
-import Aos from "aos";
+import dataAnalyticsAnimation from "@/assets/videos/dataAnalyticsAnimation.json";
+import Lottie, { type LottieProps } from "react-lottie";
 
 function AboutSection() {
   const [loadingForPiggyBankLottie, setLoadingForPiggyBankLottie] =
@@ -18,20 +19,25 @@ function AboutSection() {
     loadingForSunflowerMoneyGrowingLottie,
     setLoadingForSunflowerMoneyGrowingLottie,
   ] = useState(true);
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: dataAnalyticsAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   const typeWriterSentaces = [
-    "Stressed about your income?",
-    "Thinking about saving money?",
+    "trying to cut down expenses?",
+    "Thinking about saving business?",
   ];
-  useEffect(() => {
-    Aos.init({ duration: 1000, once: true, easing: "ease", offset: 60 });
-  }, []);
 
   return (
     <>
       <div className="flex flex-col gap-y-40">
         <div className="flex flex-col md:flex-row align-middle justify-evenly">
           <div
-            className="flex place-items-center justify-center align-middle md:mr-16 max-w-md mx-auto md:mx-0 md:max-w-none mb-4 md:mb-0"
+            className="flex place-items-center justify-center align-middle md:mr-16 max-w-[27.5rem] mx-auto md:mx-0 px-20 mb-4 md:mb-0"
             data-aos="zoom-in-right"
             data-aos-delay="300"
           >
@@ -49,7 +55,7 @@ function AboutSection() {
               }}
               autoplay
               loop
-            ></DotLottiePlayer>
+            />
           </div>
 
           <div className="flex flex-col my-auto md:w-[750px]">
@@ -84,8 +90,6 @@ function AboutSection() {
           </div>
         </div>
 
-        <HowWeWorkSection />
-
         <div className="flex flex-col-reverse md:flex-row justify-evenly align-middle">
           <div className="flex justify-evenly  my-auto text-center md:text-left">
             <AnimatedText
@@ -100,23 +104,11 @@ function AboutSection() {
             />
           </div>
           <div className="sm:order-1 md:order-2">
-            {loadingForSunflowerMoneyGrowingLottie && (
-              <div>
-                <Spinner color="primary" />
-              </div>
-            )}
-            <DotLottiePlayer
-              src="/sunflowerGrowingMoneyAnimation.lottie"
-              onEvent={(event: PlayerEvents) => {
-                if (event === PlayerEvents.Ready) {
-                  setLoadingForSunflowerMoneyGrowingLottie(false);
-                }
-              }}
-              autoplay
-              loop
-            ></DotLottiePlayer>
+            <Lottie width={425} height={425} options={defaultOptions} />
           </div>
         </div>
+
+        <HowWeWorkSection />
       </div>
 
       <div
