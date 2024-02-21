@@ -1,3 +1,11 @@
+## Cafe Analytics and AI-Driven Insights
+
+# Demo Video
+https://github.com/my-neme-eh-jeff/techTitans_Hackniche/assets/95428432/1c3ed284-753b-40c2-8d17-8162fd33a512
+
+
+
+
 ## Documentation
 ### check out our documentation on this site: [GrowthSync-Analytics](https://chrome-month-765.notion.site/GrowthSync-Analytics-51ec8a1bd4ba487e848e7aa25a28e04f?pvs=25)
 
