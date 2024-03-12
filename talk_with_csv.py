@@ -1,6 +1,5 @@
 
 import pandas as pd
-from dotenv import load_dotenv
 import json
 import os
 import streamlit as st
@@ -8,8 +7,14 @@ import sqlite3
 #import altair as alt
 #import seaborn as sns
 from showallthedb import showallgraph
-from transformers import pipeline
+# from transformers import pipeline
 import pandas as pd
+from gemini import call_gemini
+
+from transformers import TapexTokenizer, BartForConditionalGeneration
+from preprocessing import convert_to_quoted_strings, postProcessTAPEXResult
+from dotenv import load_dotenv
+load_dotenv()
 
 # import sweetviz as sv
 from ydata_profiling import ProfileReport
@@ -18,7 +23,6 @@ conn = sqlite3.connect('news_data.db')
 cursor = conn.cursor()
 
 st.set_page_config(page_title="👨‍💻 Talk with your CSV", layout='wide')
-load_dotenv()
 
 
 # Render the custom CSS styles
@@ -47,7 +51,7 @@ st.markdown("""
             unsafe_allow_html=True)
 
 
-def ask_agent(agent, query):
+def ask_agent(model, df, tokenizer, query) -> str:
     """
     Query an agent and return the response as a string.
 
@@ -88,11 +92,17 @@ def ask_agent(agent, query):
         Now, let's tackle the query step by step. Here's the query for you to work on: 
         """ + query)
 
+    encoding = tokenizer(table=df, query=query, return_tensors="pt")
     # Run the prompt through the agent and capture the response.
-    response = agent.run(prompt)
+    
+    print("generating output")
+    outputs = model.generate(**encoding)
+    response = tokenizer.batch_decode(outputs, skip_special_tokens=True)
+    
+    print(f"response before postprocessing - {response}")
 
     # Return the response converted to a string.
-    return str(response)
+    return postProcessTAPEXResult(response)
 
 
 def decode_response(response: str) -> dict:
@@ -205,11 +215,15 @@ def welcome():
         st.session_state['authentication_status'] = True
 
 
-@st.cache_data(persist=True, show_spinner=False)
-def get_pipeine():
+@st.cache_data(persist=True, show_spinner=True)
+def get_model():
     print("--------------------------------------------")
     print("Loading the language model...")
-    return pipeline(task="table-question-answering", model="google/tapas-large-finetuned-wtq")
+    tokenizer = TapexTokenizer.from_pretrained("microsoft/tapex-large-finetuned-wtq")
+    model = BartForConditionalGeneration.from_pretrained("microsoft/tapex-large-finetuned-wtq")
+
+    return tokenizer, model
+
 
 def login():
     
@@ -232,23 +246,28 @@ def login():
         print("---", FILE_PATH, "---")
         df = pd.read_csv(FILE_PATH)
 
-        tqa = get_pipeine()
+        tokenizer, model = get_model()
         print("--------------------------------------------")
         print("Retreiving result")
-        response = tqa(table=df, query=query)['cells'][0]
+
+        response :str = ask_agent(model ,df, tokenizer, query)
+        print(f"response before decoding - {response}")
+
 
         # table = pd.DataFrame.from_dict(data)
 
         # Decode the response.
-        decoded_response = decode_response(response)
+        decoded_response = response
+        print(f"decoded response  - {decoded_response}")
+
         # decoded_response = {"bar": {"columns": ["Price"], "data": [20.04, 16.94, 15.77]}}
 
         # Write the response to the Streamlit app.
-        write_answer(decoded_response)
+        # write_answer(decoded_response)
+        st.write(decoded_response)
         st.session_state['query'] = query
         st.session_state['response'] = str(decoded_response)
-        if st.button("Exit",
-                     args=(st.session_state.query, st.session_state.response)):
+        if st.button("Exit",args=(st.session_state.query, st.session_state.response)):
             print("Removed element")
             print("Removed element finally removed")
 
